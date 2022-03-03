@@ -18,38 +18,50 @@ $(document).ready(function(){
                 <h3>${nombre}</h3>
                 <img src="${image}" alt="">
                 <h6>Peso:${peso}</h6>
-              </div>`)
+              </div>`);
+
+
+              //Propio arreglo de objetos para calzar datos en canvas.
+                let estadisticas = [];
+
+                data.stats.forEach(function (s) {
+                estadisticas.push({
+                label: s.stats.name,
+                 y : s.base_stat,
+                })
+                            });
+
+
+             //Objeto de configuracion para el grafico
+              let config = {
+                AnimationEnabled : true,
+                title : {
+                    text : "Estadisticas",
+            
+                },
+                axisY: {
+                    title: "Valor",
+                },
+                axisX: {
+                    title: "column",
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: estadisticas
+                },
+            ],
+            
+            },
+
+            //Introduccion del grafico de js canvas
+            let chart = new CanvasJS.Chart("pokeStats", config);
+            chart.render();
+
              
-            }
-        })
-    })
-})
-
-//Propio arreglo de objetos para calzar datos en canvas.
-let estadisticas = []
-
-data.stats.forEach(function (s) {
-    estadisticas.push({
-        label: s.stats.name,
-        y : s.base_stat,
-    })
-    
+            },
+        });
+    });
 });
-let config = {
-    AnimationEnabled : true,
-    title : {
-        text : "Estadisticas",
 
-    },
-    axisY: {
-        title: "Valor",
-    },
-    axisX: {
-        title: "column",
-    },
-    data: [{
-        type: "column",
-        dataPoints: estadisticas
-    }],
 
-},
+
